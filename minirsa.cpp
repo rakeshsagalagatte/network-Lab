@@ -3,12 +3,12 @@
 
 using namespace std;
 
-int DKey = 0,n=0;
+double DKey = 0,n=0;
 
-long long int* keyAssign(char *message){
-       long long int *msgKey = new long long int[strlen(message)];
+double* keyAssign(char *message){
+       double *msgKey = new double[strlen(message)];
         for(int i=0; i < strlen(message) ; i++){
-            msgKey[i] = (int) message[i]; 
+            msgKey[i] = message[i] - 96; 
            // cout << (int) message[i] << endl;
          }
         return msgKey;;
@@ -36,14 +36,14 @@ int gcd(int a, int h)
         h = temp; 
     } 
 }
-int encrypt(long long int *msgKeys, int len){
+double encrypt(double *msgKeys, int len){
  
-     int p, q;
+     double p, q;
       cout << "Enter the P and Q : ";
       cin >> p >> q;
      n = p * q;
-     int fi = (p-1) * (q-1);
-     int e = 2,k=2 ;
+     double fi = (p-1) * (q-1);
+     double e = 2,k=2 ;
      while (e < fi) 
     { 
 
@@ -58,15 +58,16 @@ int encrypt(long long int *msgKeys, int len){
      // To find Decryption key
      DKey= ((k * fi) + 1) / e;
        // Msg encrytption ;
-      long long int c= msgKeys[0];
+      double c= msgKeys[0];
      for(int i=1; i < len ; i++){
          int digit = howmanyDigit(msgKeys[i]);
           // cout << digit << endl;
-           c = c * (digit==2 ?100:1000);
+           c = c * (digit==1 ? 10 : digit== 2 ? 100:1000);
+           cout << digit << endl;
          c +=  msgKeys[i];
      }
     int msgEncr = pow(c,k);
-    msgEncr %= n;
+    msgEncr = fmod(msgEncr, n);
     cout << msgEncr << endl;
     // cout << c << endl;
     return msgEncr;
@@ -74,8 +75,8 @@ int encrypt(long long int *msgKeys, int len){
 
  
 void decryption(int msgEncr){
-  long long int msgKey = pow(msgEncr , DKey) ;
-  msgKey = mod(msgKey,n);
+  double msgKey = pow(msgEncr , DKey) ;
+  msgKey = fmod(msgKey,n);
   cout << msgKey << endl;
 }
 
@@ -84,8 +85,8 @@ int main(){
     cout << "Enter the message : ";
     cin >> message;
    // keyAssign(message);
-    long long int *msgKeys = keyAssign(message);
-    int msgEncr = encrypt(msgKeys , strlen(message));
+    double *msgKeys = keyAssign(message);
+    double  msgEncr = encrypt(msgKeys , strlen(message));
     decryption(msgEncr);
     return 0;  
 }
