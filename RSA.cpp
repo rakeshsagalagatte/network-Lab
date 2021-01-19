@@ -1,4 +1,5 @@
 #include <bits/stdc++.h>
+#include <cmath.h>
 
 using namespace std;
 
@@ -73,8 +74,8 @@ int encrypt(long long int *msgKeys, int len){
 
  
 void decryption(int msgEncr){
-  int msgKey = pow(msgEncr , DKey) ;
-  msgKey %= n;
+  long long int msgKey = pow(msgEncr , DKey) ;
+  msgKey = fmod(msgKey,n);
   cout << msgKey << endl;
 }
 
