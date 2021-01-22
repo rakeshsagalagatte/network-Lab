@@ -8,7 +8,7 @@ int main(){
 
    char fname[50] , buffer[1025];
    int req, res, n, file;
-   req = open("req.fifo", O_URONLY);
+   req = open("req.fifo", O_WRONLY);
    res = open("res.fifo", O_RDONLY);
    
    printf("Enter the filename : ");
