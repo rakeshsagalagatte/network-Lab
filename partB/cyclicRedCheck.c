@@ -57,12 +57,14 @@ int main(){
    scanf("%s", generator);
    printf("Enter the transmission message (same as original msg) : ");
   scanf("%s",transmissionMSG); 
-   char *remainder = getRemainder(message,generator);
-   char *check = check_message(transmissionMSG, generator ,  remainder + (strlen(remainder) - strlen(generator) + 1));
+   char *remainder = getRemainder(message,generator);   // remainder bits start from  number of generator bits + 1  
+   char *check = check_message(transmissionMSG, generator ,  remainder + (strlen(remainder) - strlen(generator) + 1));  // If all are 0's no error.
    int i=0;
    for(i=0;i < strlen(check) ; i++){
       if(check[i] != '0'){
          printf("Error detected ....!\n");
+	 free(remainder);
+	 free(check);
 	 return 0;
       }
    }
