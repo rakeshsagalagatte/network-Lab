@@ -16,7 +16,7 @@ proc finish {} {
 	close $tf
 	close $nf
 	exec nam udptcplabset.nam &
-	exec awk -f labset1.awk udptcplabset.tr &
+	exec awk -f udptcp.awk udptcplabset.tr &
 	exit 0
 }
 
